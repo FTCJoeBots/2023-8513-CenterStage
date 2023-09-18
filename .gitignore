@@ -4,3 +4,5 @@
 /FtcRobotController/build/intermediates/javac/debug/classes/
 /TeamCode/build/
 /TeamCode/build/intermediates/javac/debug/classes/
+.DS_Store
+.idea/*
