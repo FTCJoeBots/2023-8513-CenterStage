@@ -2,16 +2,29 @@ package org.firstinspires.ftc.teamcode.tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
-import com.acmerobotics.roadrunner.Twist2d;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Encoder;
+import com.acmerobotics.roadrunner.ftc.RawEncoder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.TankDrive;
 
-public class LocalizationTest extends LinearOpMode {
+public class TestOpmode2 extends LinearOpMode {
     @Override
+
+
+
+
+    //public final Encoder par0, par1, perp;
+
     public void runOpMode() throws InterruptedException {
+
+
+        //par0 = new RawEncoder(hardwareMap.get(DcMotorEx.class, "leftFront"));
+        //par1 = new RawEncoder(hardwareMap.get(DcMotorEx.class, "rightFront"));
+        //perp = new RawEncoder(hardwareMap.get(DcMotorEx.class, "leftBack"));
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
             MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
@@ -24,7 +37,6 @@ public class LocalizationTest extends LinearOpMode {
                                 -gamepad1.left_stick_x
                         ),
                         -gamepad1.right_stick_x
-
                 ));
 
                 drive.updatePoseEstimate();
