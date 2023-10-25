@@ -31,7 +31,9 @@ import com.acmerobotics.roadrunner.ftc.PositionVelocityPair;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -47,39 +49,34 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Config
+@TeleOp
 public final class MecanumDrive {
     public static class Params {
         // drive model parameters
         public double inPerTick = 0.0007624251472;
-        //0.000635354289333
         public double lateralInPerTick = 0.00051895096481978;
-
-        //0.000454115158741428
         public double trackWidthTicks = 22026.409770070717;
-
         // feedforward parameters (in tick units)
         public double kS =  0.9640962667515671;
         public double kV =  0.00011370942725399379;
         public double kA = 0.00002;
-
         // path profile parameters (in inches)
         public double maxWheelVel = 50;
         public double minProfileAccel = -30;
         public double maxProfileAccel = 50;
-
         // turn profile parameters (in radians)
         public double maxAngVel = Math.PI; // shared with path
         public double maxAngAccel = Math.PI;
-
         // path controller gains
         public double axialGain = 0.0;
         public double lateralGain = 0.0;
         public double headingGain = 0.0; // shared with turn
-
         public double axialVelGain = 0.0;
         public double lateralVelGain = 0.0;
         public double headingVelGain = 0.0; // shared with turn
     }
+
+
 
     public static Params PARAMS = new Params();
 
@@ -194,19 +191,15 @@ public final class MecanumDrive {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        // Maize has the frist 2 (1 and 2), white has 2 and 4
-
         //1
-        //leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+       // leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //2
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //3
-        //rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //4
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
         imu = hardwareMap.get(IMU.class, "imu");
@@ -330,6 +323,9 @@ public final class MecanumDrive {
         }
     }
 
+
+
+
     public final class TurnAction implements Action {
         private final TimeTurn turn;
 
@@ -452,4 +448,10 @@ public final class MecanumDrive {
                 0.25, 0.1
         );
     }
+
+   // public TrajectoryActionBuilder ___ (Vector2d ){
+
+        //IDK what to put
+   // }
+
 }
