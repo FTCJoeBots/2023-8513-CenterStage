@@ -13,9 +13,12 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 @TeleOp(name="Simple Mecanum Drive", group="TeleOp")
 
 public class SimpleMacanumDrive extends OpMode {
+
     MecanumDrive drive = new MecanumDrive(hardwareMap , new Pose2d(0, 0, 0));
     Intake intake = new Intake();
     Lift lift = new Lift();
+    Shooter shooter = new Shooter();
+    Bucket bucketFunctions = new Bucket();
 
     int stateIntake = 0;
     int stateLift = 0;
@@ -28,11 +31,22 @@ public class SimpleMacanumDrive extends OpMode {
     boolean nowIntake;
     boolean previoiusPressedIntake = false;
 
+    boolean aPrev = false;
+    //boolean yPrev = false;
+    boolean bPrev = false;
+   // boolean xPrev = false;
+
+    boolean curRB;
+    boolean prevRB;
+
+
 
     @Override
     public void init() {
         intake.init(hardwareMap);
-        lift.init(hardwareMap);
+       lift.init(hardwareMap);
+       shooter.init(hardwareMap);
+      bucketFunctions.init(hardwareMap, Bucket.BucketStartPosition.IN, Bucket.BucketGateStartPosition.CLOSE);
     }
 
     @Override
@@ -40,18 +54,20 @@ public class SimpleMacanumDrive extends OpMode {
 
         // DRIVER CODE
 
-        drive.setDrivePowers(new PoseVelocity2d( new Vector2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x), -gamepad1.right_stick_x));
+        //drive.setDrivePowers(new PoseVelocity2d( new Vector2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x), -gamepad1.right_stick_x));
+        drive.setDrivePowers(new PoseVelocity2d( new Vector2d(-gamepad1.left_stick_y, 0), -gamepad1.right_stick_x));
         drive.updatePoseEstimate();
 
 
 
-
+/**
         // OPERATOR CODE
 
         //Intake: Y
         //Lift: X
-        //Bucket:
-        //BucketGate:
+        //Bucket: Right Bumper
+        //BucketGate: B
+        //Shooter: A
 
         //Intake
         nowIntake = gamepad2.y;
@@ -136,8 +152,36 @@ public class SimpleMacanumDrive extends OpMode {
             lift.Lift_To_Position(3);
         }
  **/
+/**
 
         //Bucket
+
+        if(gamepad1.right_bumper != prevRB){
+            Bucket.ToggleBucket();
+        }
+        prevRB = gamepad1.right_bumper;
+
+        //Cur = gamepad1.j;
+        //if(Cur != Prev){ Motor.Toggle }
+        // Prev = Cur
+
+
+        //BucketGate
+
+        if (gamepad2.b && !bPrev) {
+            Bucket.ToggleBucketGate();
+        }
+        bPrev = gamepad2.b;
+
+
+        //Shooter
+
+        if (gamepad2.a && !aPrev) {
+            shooter.Toggle();
+        }
+        aPrev = gamepad2.a;
+**/
+
 
         telemetry.addData("x", drive.pose.position.x);
         telemetry.addData("y", drive.pose.position.y);

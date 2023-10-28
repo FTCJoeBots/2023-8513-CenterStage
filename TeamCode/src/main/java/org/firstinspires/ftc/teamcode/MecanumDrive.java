@@ -50,7 +50,7 @@ import java.util.List;
 
 @Config
 @TeleOp
-public final class MecanumDrive {
+public final class MecanumDrive extends OpMode  {
     public static class Params {
         // drive model parameters
         public double inPerTick = 0.0007624251472;
@@ -76,7 +76,15 @@ public final class MecanumDrive {
         public double headingVelGain = 0.0; // shared with turn
     }
 
+    @Override
+    public void init() {
 
+    }
+
+    @Override
+    public void loop() {
+
+    }
 
     public static Params PARAMS = new Params();
 

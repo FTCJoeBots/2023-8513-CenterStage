@@ -45,9 +45,9 @@ public class Shooter {
     //constants
 
     //constructor
-    public Shooter(){
+    //public Shooter(){
 
-    }
+    //}
 
     //init
     public void init(HardwareMap hwMap) {
@@ -57,9 +57,7 @@ public class Shooter {
         Shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
-    ////=======================
 
-    //stop
     public void stopMotor(){
         currentPower = 0;
     }
@@ -68,24 +66,25 @@ public class Shooter {
         driverOverride=true;
         currentPower = 1;
     }
+
     public void disableDriveOverride(){
-        driverOverride=false;
-        currentPower = 0;
+       driverOverride=false;
+       currentPower = 0;
     }
 
     //ramp up
-    public void startRamp(){
-        rampingUp = true;
-    }
-    public void rampController(){
-        if(rampTime.milliseconds()-rampCurrTime >= CYCLE) {
-            currentPower += INCREMENT;
-            }
-        if(currentPower>=shooterMaxPower){
-            rampingUp = false;
-        }
+    //public void startRamp(){
+       // rampingUp = true;
+    //}
+    //public void rampController(){
+      //  if(rampTime.milliseconds()-rampCurrTime >= CYCLE) {
+        //    currentPower += INCREMENT;
+          //  }
+        //if(currentPower>=shooterMaxPower){
+          //  rampingUp = false;
+        //}
 
-    }
+    //}
     //reverse
 
     public void ManualDrive(double newSpeed){
@@ -107,19 +106,19 @@ public class Shooter {
 
     }
 
-    public void spinnerController(){
+   // public void spinnerController(){
         //sets a variable to control the current action of the motor
-        if(currentPower>0 || currentPower<0){
+   //     if(currentPower>0 || currentPower<0){
             //the motor is running. Check if ramping
-            if(rampingUp){
-                rampController();
-            }
+    //        if(rampingUp){
+    //            rampController();
+    //        }
 
-            WheelOn = true;
-        } else{
-            WheelOn = false;
-            currentPower = 0;
-        }
-        Shooter.setPower(currentPower);
-    }
+     //       WheelOn = true;
+    //    } else{
+    //       WheelOn = false;
+      //      currentPower = 0;
+       // }
+      //  Shooter.setPower(currentPower);
+    //}
 }

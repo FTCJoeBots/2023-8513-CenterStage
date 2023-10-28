@@ -22,7 +22,8 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 public class Lift {
 
-    final int groundlevel  = 100;
+
+    final int groundlevel  = 0;
     final int low     = 1000;
     final int med     = 2000;
     final int high    = 3000;
@@ -36,7 +37,7 @@ public class Lift {
 
     final int MaxLiftH = 3500;
     final int MinLiftH = 0;
-    double MANUAL_LIFT_SPEED = 0.3;
+    double MANUAL_LIFT_SPEED = 0.4;
     double POSITION_LIFT_SPEED = 0.3;
     private int lift_target_position = 0;
 
@@ -63,15 +64,17 @@ public class Lift {
 
         liftM.setTargetPosition(lift_target_position);
         liftM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftM.setPower(1);
+        liftM.setPower(MANUAL_LIFT_SPEED);
     }
+
+
 
 
     public void raiseLiftManual(){
-        lift_target_position = liftM.getCurrentPosition()+150;
+        lift_target_position = liftM.getCurrentPosition()+75;
     }
     public void lowerLiftManual(){
-        lift_target_position=liftM.getCurrentPosition()-150;
+        lift_target_position=liftM.getCurrentPosition()-75;
     }
     public int getLiftTargetPosition(){
         return lift_target_position;
@@ -92,24 +95,8 @@ public class Lift {
             case 3:
                 lift_target_position = high;
                 break;
-            case 4:
-                lift_target_position = initPos;
-                break;
-            case 5:
-                lift_target_position = aH;
-                break;
-            case 6:
-                lift_target_position = aMH;
-                break;
-            case 7:
-                lift_target_position = aM;
-                break;
-            case 8:
-                lift_target_position = aLM;
-                break;
-            case 9:
-                lift_target_position = aL;
-                break;
+
+
         }
     }
 
