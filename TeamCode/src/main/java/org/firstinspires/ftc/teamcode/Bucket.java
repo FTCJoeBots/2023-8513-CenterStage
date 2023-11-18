@@ -1,4 +1,8 @@
 package org.firstinspires.ftc.teamcode;
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -21,63 +25,26 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 public class Bucket {
-    final double IntakeSide = 0;
-    final double OutputSide = 0.5;
-
-    final double ClosedBucket = 0;
-    final double OpenBucket = 0.5;
-
-    private static final double InBucket = 0.5;
-    private static final double OutBucket = 0.3;
+    static final double IntakeSide = 0.95;//0.6
+    static double OutputSide = -0.6;
 
     static boolean BucketInB = false;
-
-
-    private static final double ClosedBucketGate = 0;
+    private static final double ClosedBucketGate = 0.5;
     private static final double OpenBucketGate = 0.5;
-
     static boolean BucketGateClosedB = false;
-
-
     static Servo Bucket ;
     static Servo BucketGate ;
 
-    public enum BucketStartPosition {
-        //Bucket Points In (towards the intake)
-        IN,
-        //Bucket Points Out (towards the backboard)
-
-        OUT
-    }
-
-    public enum BucketGateStartPosition {
-        //Bucket Points In (towards the intake)
-        CLOSE,
-        //Bucket Points Out (towards the backboard)
-
-        OPEN
-    }
-
-    public void init(HardwareMap hwMap, BucketStartPosition BSP, BucketGateStartPosition BGSP) {
+    public void init(HardwareMap hwMap) {
         Bucket = hwMap.get(Servo.class,"Bucket");
         BucketGate = hwMap.get(Servo.class,"BucketGate");
 
-        if (BSP == BucketStartPosition.IN) {
-            Bucket.setPosition(IntakeSide);
-        } else if (BSP == BucketStartPosition.OUT) {
-            Bucket.setPosition(OutputSide);
-        }
-
-        if (BGSP == BucketGateStartPosition.CLOSE) {
-            BucketGateIn();
-        } else if (BGSP == BucketGateStartPosition.OPEN) {
-            BucketGateOut();
-        }
+        Bucket.setPosition(IntakeSide);
+        BucketGate.setPosition(2.3);
 
     }
 
     //Bucket
-
     public void BucketSet(int BucketPos) {
 
             switch(BucketPos){
@@ -91,15 +58,32 @@ public class Bucket {
             }
         }
 
+    public void bucketMore(){
+
+        OutputSide+=0.1;
+
+    }
+
+    public void bucketLess(){
+
+        OutputSide-=0.1;
+
+    }
+
+
+    public static void BucketSet(){
+        Bucket.setPosition(IntakeSide);
+        BucketInB=true;
+    }
+
     public static void BucketOut(){
-        Bucket.setPosition(OutBucket);
+        Bucket.setPosition(OutputSide);
         BucketInB=true;
     }
     public static void BucketIn(){
-        Bucket.setPosition(InBucket);
+        Bucket.setPosition(IntakeSide);
         BucketInB=false;
     }
-
     public static void ToggleBucket(){
         if(BucketInB){
             BucketIn();
@@ -107,21 +91,19 @@ public class Bucket {
             BucketOut();
         }
     }
-
     public static double getBucketPosition(){ return Bucket.getPosition(); }
 
 
     //BucketGate
-
     public static void BucketGateOut(){
-        BucketGate.setPosition(OpenBucketGate);
+        BucketGate.setPosition(ClosedBucketGate);
         BucketGateClosedB=true;
+
     }
     public static void BucketGateIn(){
-        BucketGate.setPosition(ClosedBucketGate);
+        BucketGate.setPosition(2.3);
         BucketGateClosedB=false;
     }
-
     public static void ToggleBucketGate(){
         if(BucketGateClosedB){
             BucketGateIn();
@@ -129,9 +111,7 @@ public class Bucket {
             BucketGateOut();
         }
     }
-
-
-    public void BucketGate(int BucketGatePos) {
+   /* public void BucketGate(int BucketGatePos) {
 
         switch(BucketGatePos){
             case 1:
@@ -142,8 +122,34 @@ public class Bucket {
                 break;
 
         }
+    }*/
+   public class OutB implements Action {
+       public void init() {
+           BucketIn();}
+       public boolean loop(TelemetryPacket packet) {return false;}
+       @Override
+       public boolean run(TelemetryPacket telemetryPacket) {
+           BucketOut();
+           return false;}
+   }
+
+    public class OutBG implements Action {
+        public void init() {
+            ToggleBucketGate();}
+        public boolean loop() {return false;}
+        @Override
+        public boolean run( TelemetryPacket telemetryPacket) {
+            BucketGateOut();
+            return false;}
     }
 
-    public static double getGatePosition(){ return BucketGate.getPosition(); }
+
+
+    public Action BucketOutA() {
+        return new Bucket.OutB();
+    }
+    public Action BucketGateOutA() {
+        return new Bucket.OutBG();
+    }
 
 }

@@ -52,14 +52,36 @@ import java.util.List;
 @TeleOp
 public final class MecanumDrive extends OpMode  {
     public static class Params {
+
         // drive model parameters
+     /*   public double inPerTick = 0.0007624251472;//0.0.000473227172704;
+
+        public double lateralInPerTick = 0.005895096481978;
+
+        public double trackWidthTicks = 22026.409770070717;
+
+        // feedforward parameters (in tick units)
+        public double kS =  0.9746401029417786;//0.9640962667515671;
+
+        public double kV =  0.00011904071035985332;//0.00011370942725399379;
+
+        public double kA = 0.00002;*/
+
+
+
+
+
         public double inPerTick = 0.0007624251472;
         public double lateralInPerTick = 0.00051895096481978;
         public double trackWidthTicks = 22026.409770070717;
-        // feedforward parameters (in tick units)
         public double kS =  0.9640962667515671;
         public double kV =  0.00011370942725399379;
         public double kA = 0.00002;
+
+
+
+
+
         // path profile parameters (in inches)
         public double maxWheelVel = 50;
         public double minProfileAccel = -30;
