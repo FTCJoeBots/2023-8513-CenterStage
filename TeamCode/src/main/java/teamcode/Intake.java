@@ -1,15 +1,11 @@
-package org.firstinspires.ftc.teamcode;
-
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+package teamcode;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.*;
-import com.acmerobotics.roadrunner.Pose2d;
-
-import java.lang.Math;
+import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
 
@@ -74,16 +70,16 @@ public class Intake {
 
 
     public Action inverse() {
-        return new Intake.EntakeBack();
+        return new EntakeBack();
     }
     public Action start() {
-        return new Intake.EntakeOn();
+        return new EntakeOn();
     }
     public Action stop() {
-        return new Intake.EntakeNo();
+        return new EntakeNo();
     }
     public Action ChangeJOEY() {
-        return new Intake.ChangeJoey();
+        return new ChangeJoey();
     }
 
 }

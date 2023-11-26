@@ -1,28 +1,9 @@
-package org.firstinspires.ftc.teamcode;
-import androidx.annotation.NonNull;
+package teamcode;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.configuration.typecontainers.ServoConfigurationType;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
-
-import java.util.List;
 
 public class Bucket {
     static final double IntakeSide = 0.95;//0.6
@@ -57,19 +38,6 @@ public class Bucket {
 
             }
         }
-
-    public void bucketMore(){
-
-        OutputSide+=0.1;
-
-    }
-
-    public void bucketLess(){
-
-        OutputSide-=0.1;
-
-    }
-
 
     public static void BucketSet(){
         Bucket.setPosition(IntakeSide);
@@ -129,7 +97,7 @@ public class Bucket {
        public boolean loop(TelemetryPacket packet) {return false;}
        @Override
        public boolean run(TelemetryPacket telemetryPacket) {
-           BucketOut();
+           ToggleBucket();
            return false;}
    }
 
@@ -139,17 +107,17 @@ public class Bucket {
         public boolean loop() {return false;}
         @Override
         public boolean run( TelemetryPacket telemetryPacket) {
-            BucketGateOut();
+            ToggleBucketGate();
             return false;}
     }
 
 
 
     public Action BucketOutA() {
-        return new Bucket.OutB();
+        return new OutB();
     }
     public Action BucketGateOutA() {
-        return new Bucket.OutBG();
+        return new OutBG();
     }
 
 }

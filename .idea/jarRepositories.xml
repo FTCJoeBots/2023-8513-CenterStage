@@ -36,5 +36,15 @@
       <option name="name" value="maven" />
       <option name="url" value="file:$PROJECT_DIR$/TeamCode/https;/maven.brott.dev" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven" />
+      <option name="name" value="maven" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../Divyang%20Verma/Documents/GitHub/2023-8513-CenterStage/FtcRobotController/https;/maven.brott.dev" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven" />
+      <option name="name" value="maven" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../Divyang%20Verma/Documents/GitHub/2023-8513-CenterStage/TeamCode/https;/maven.brott.dev" />
+    </remote-repository>
   </component>
 </project>
