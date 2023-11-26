@@ -6,6 +6,10 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
 
 @TeleOp(name="A_SimpleMecanumDrive8513", group="0"/*, color = "red"*/)
 
@@ -69,6 +73,12 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
         shooter.init(hardwareMap);
         bucketFunctions.init(hardwareMap);
 
+        View relativeLayout;
+
+        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+        relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
+        relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.rgb(179, 160, 18)));
 
         //Init Loop
         // The User is pressing the Dpad to change the Drive Style
@@ -108,6 +118,7 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
 
+            //        relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.rgb(179, 160, 18)));
 
             if (driveStyle==1){
                 //REG
@@ -354,7 +365,6 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
             telemetry.addData("Real Heading:", drive.getRealHeading());
             telemetry.addData("Imaginary Heading:", drive.getImaginaryHeading());
             telemetry.addData("Log Heading:", drive.getLogHeading());
-
 
             //telemetry.speak("NERDS!!!");
             telemetry.update();

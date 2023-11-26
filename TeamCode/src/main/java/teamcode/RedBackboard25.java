@@ -1,5 +1,9 @@
 package teamcode;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -12,6 +16,10 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
 
 /**
  * This is sample code used to explain how to write an autonomous code
@@ -31,6 +39,14 @@ public class RedBackboard25 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        View relativeLayout;
+
+        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+        relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
+        relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.rgb(214, 41, 41)));
+
+
         Pose2d startPose = new Pose2d(0, 0, Math.toRadians(-90));// Starting position
         Pose2d dropPose = new Pose2d(-0.1, 0.1, Math.toRadians(-90)); // Where it goes before it drops
         Pose2d waitPose = new Pose2d(-5, 5, Math.toRadians(-90)); // Can be anything

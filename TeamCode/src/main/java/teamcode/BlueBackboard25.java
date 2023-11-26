@@ -1,5 +1,9 @@
 package teamcode;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -31,6 +35,13 @@ public class BlueBackboard25 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        View relativeLayout;
+
+        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+        relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
+        relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.rgb(42, 42, 222)));
 
         Pose2d startPose = new Pose2d(0, 0, Math.toRadians(-90));// Starting position
         Pose2d dropPose = new Pose2d(0.1, 0.1, Math.toRadians(-90)); // Where it goes before it drops
