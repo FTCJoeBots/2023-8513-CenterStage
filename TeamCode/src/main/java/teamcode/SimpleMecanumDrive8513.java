@@ -22,7 +22,7 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
     int driveStyle=1;
     boolean preIntake = false;
     boolean nowIntake;
-    boolean previoiusPressedIntake = false;
+    //boolean previoiusPressedIntake = false;
 
     //Boolean Gards for buttons
     boolean xPrev = false;
@@ -176,9 +176,6 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
                             -rotate
                     ));
 
-
-
-
             //Starts the intake
             intake.Intake_start();
 
@@ -240,21 +237,18 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
                 if (stateIntake > 3) {
                     stateIntake = 1;
                 }
-                previoiusPressedIntake = true;
             }
             preIntake = nowIntake;
 
             //End Game controls (driver)
             //Shooter
-            aCur = gamepad1.dpad_up;
             if(gamepad1.dpad_up && !aPrev){
-                shooter.shoot();
+                Shooter.shoot();
                 telemetry.speak("Shot");
             }
             aPrev = gamepad1.dpad_up;
 
             // Hanger
-            yCur = gamepad1.x;
             if(gamepad1.x && !yPrev){
                 intake.Intake_stop();
                 lift.toggleHanger();
@@ -331,7 +325,6 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
             }
 
             //Edit Mode (lift)
-            yCur2 = gamepad2.y;
             if(gamepad2.y && !yPrev2){
                 lift.Lift_To_Position(1);
                 lift.check();
@@ -343,7 +336,6 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
 
 
             //Bucket
-            xCur = gamepad2.x;
             if(gamepad2.x && !xPrev){
                bucketFunctions.ToggleBucketGate();
             }
@@ -358,9 +350,10 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
             telemetry.addLine("");
             telemetry.addLine("DRIVE POSITIONS");
             telemetry.addData("X pos:", drive.getPosX());
-            telemetry.addData("Y pos:", drive.getPosX());
+            telemetry.addData("Y pos:", drive.getPosY());
             telemetry.addData("Real Heading:", drive.getRealHeading());
             telemetry.addData("Imaginary Heading:", drive.getImaginaryHeading());
+            telemetry.addData("Log Heading:", drive.getLogHeading());
 
 
             //telemetry.speak("NERDS!!!");

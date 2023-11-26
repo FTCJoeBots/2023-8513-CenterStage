@@ -347,7 +347,9 @@ public final class MecanumDrive extends OpMode  {
     public double getImaginaryHeading(){
         return pose.heading.imag;
     }
-
+    public double getLogHeading(){
+        return pose.heading.log();
+    }
 
 
 
@@ -473,10 +475,5 @@ public final class MecanumDrive extends OpMode  {
                 0.25, 0.1
         );
     }
-
-   // public TrajectoryActionBuilder ___ (Vector2d ){
-
-        //IDK what to put
-   // }
 
 }
