@@ -16,6 +16,7 @@ import android.view.View;
 public class SimpleMecanumDrive8513 extends LinearOpMode {
 
     private ElapsedTime timer = new ElapsedTime();
+    private ElapsedTime OpmodeTimer = new ElapsedTime();
 
     //Drive Var
     private double strafe = 0;
@@ -118,7 +119,11 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
 
-            //        relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.rgb(179, 160, 18)));
+            relativeLayout.post(() -> relativeLayout.setBackgroundColor(Color.rgb(179, 160, 18)));
+
+            OpmodeTimer.startTime();
+
+
 
             if (driveStyle==1){
                 //REG
@@ -265,6 +270,8 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
                 intake.Intake_stop();
                 lift.toggleHanger();
                 lift.Hcheck();
+                timer.reset();
+                timer.startTime();
             }
             yPrev = gamepad1.x;
 
@@ -274,6 +281,16 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
                 lift.Hcheck();
             }
             yPrev1 = gamepad1.y;
+
+            if(timer.seconds() == 15){
+                timer.reset();
+                requestOpModeStop();
+            }
+
+            if(OpmodeTimer.seconds() == 300){
+                timer.reset();
+                requestOpModeStop();
+            }
 
 
 
@@ -354,12 +371,16 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
             xPrev = gamepad2.x;
 
 
+            //Encoder Positions
             telemetry.addData("LiftEncoders",lift.getLiftPosition());
             telemetry.addData("HangerEncoders",lift.getHangerPosition());
 
+            //Seperator
             telemetry.addLine("");
             telemetry.addLine("_______________");
             telemetry.addLine("");
+
+            //Drive (deadwheel) Positions
             telemetry.addLine("DRIVE POSITIONS");
             telemetry.addData("X pos:", drive.getPosX());
             telemetry.addData("Y pos:", drive.getPosY());
