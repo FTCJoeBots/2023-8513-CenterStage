@@ -163,6 +163,7 @@ public class SimpleMecanumDrive8513 extends LinearOpMode {
                 strafe = -gamepad1.left_stick_x;
                 rotate = gamepad1.right_stick_x;*/
 
+                gamepad1.rumble(1);
                 telemetry.addLine("Did you click the dpad during init?");
                 telemetry.update();
             }
